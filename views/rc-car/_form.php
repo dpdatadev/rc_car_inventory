@@ -32,8 +32,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'notes')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'create_ts')->textInput() ?>
-
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

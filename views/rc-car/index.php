@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Rc Car', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-
+    <p class="info"><small>Configured upload location:<pre>Directory: ./web</pre> Name the image file with this convention: <pre>(make)_(optional_info)_car.jpg/png</pre></small></p>
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
 
     <?= $form->field($uploadModel, 'imageFile')->fileInput() ?>
@@ -60,7 +60,6 @@ $this->params['breadcrumbs'][] = $this->title;
             //'is_nimh',
             'needs_work',
             //'notes:ntext',
-            //'create_ts',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, RcCar $model, $key, $index, $column) {
