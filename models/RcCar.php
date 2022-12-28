@@ -27,7 +27,7 @@ class RcCar extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'rc_car';
+        return 'inventory.rc_car';
     }
 
     /**
