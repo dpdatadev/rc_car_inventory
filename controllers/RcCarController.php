@@ -62,7 +62,9 @@ class RcCarController extends Controller
             $uploadModel->imageFile = UploadedFile::getInstance($uploadModel, 'imageFile');
             if ($uploadModel->upload()) {
                 // file is uploaded successfully
-                Yii::$app->session->setFlash('uploadSuccess', "Image uploaded successfully!");
+                Yii::$app->session->setFlash('uploadSuccess', "Image uploaded successfully! " . $uploadModel->imageFile->name);
+                // display the uploaded image below the gridview
+                Yii::$app->session->set('imageFileName', $uploadModel->imageFile->name);
                 return $this->render('index', [
                     'searchModel' => $searchModel,
                     'uploadModel' => $uploadModel,

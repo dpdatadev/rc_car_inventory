@@ -18,7 +18,7 @@ $this->title = 'My RC Garage';
 
     <div class="body-content">
         <div class="container text-center">
-            <?= Html::img('@web/arma_car.jpg', ['alt' => 'Senton']) ?>
+            <?= Html::img('@web/arma_car_logo.jpg', ['alt' => 'Senton']) ?>
         </div>
     </div>
 </div>

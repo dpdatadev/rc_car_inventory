@@ -71,4 +71,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php Pjax::end(); ?>
 
+    <?php if(Yii::$app->session->has('imageFileName')): ?>
+        <?php $imageFileName = Yii::$app->session->get('imageFileName');?>
+        <div class="container text-center">
+            <?= Html::img('@web/' . $imageFileName, ['alt' => 'carUpload', 'height' => '200', 'width' => '200']) ?>
+        </div>
+    <?php endif; ?>
+
 </div>
