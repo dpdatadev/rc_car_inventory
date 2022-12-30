@@ -7,6 +7,7 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\ActiveForm;
 use yii\widgets\Pjax;
+
 /** @var yii\web\View $this */
 /** @var app\models\UploadForm $uploadModel */
 /** @var app\models\RcCarSearch $searchModel */

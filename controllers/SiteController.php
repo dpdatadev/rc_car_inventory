@@ -2,7 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\RcCar;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
