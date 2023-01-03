@@ -39,8 +39,8 @@ class LoginFormTest extends \Codeception\Test\Unit
     public function testLoginCorrect()
     {
         $this->model = new LoginForm([
-            'username' => 'demo',
-            'password' => 'demo',
+            'username' => 'admin',
+            'password' => 'BigBoi321!!!@@@###',
         ]);
 
         verify($this->model->login())->true();
