@@ -102,7 +102,6 @@ class RcCarController extends Controller
     {
         $model = new RcCar();
         if ($this->request->isPost) {
-            //$model->imageFile = UploadedFile::getInstance($model, 'imageFile');
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {

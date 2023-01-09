@@ -15,7 +15,7 @@ use app\models\RcCar;
 /**
  * This command displays information about the the Rc Car inventory.
  */
-class CarController extends Controller
+class RcCarController extends Controller
 {
     /**
      * This command echoes how many Rc Cars are in inventory.
