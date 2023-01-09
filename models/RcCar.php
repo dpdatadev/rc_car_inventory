@@ -56,11 +56,11 @@ class RcCar extends \yii\db\ActiveRecord
             'company' => 'Company',
             'distributor' => 'Distributor',
             'is_running' => 'Is Running',
-            'is_lipo' => 'Is Lipo',
-            'is_nimh' => 'Is Nimh',
+            'is_lipo' => 'Takes Lipo Battery (default)',
+            'is_nimh' => 'Takes NiMH Battery',
             'needs_work' => 'Needs Work',
             'notes' => 'Notes',
-            'create_ts' => 'Create Ts',
+            'create_ts' => 'Create Time',
         ];
     }
 }

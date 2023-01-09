@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+//use yii\imagine\Image;
+
+
 /** @var yii\web\View $this */
 /** @var app\models\RcCar $model */
 
@@ -34,13 +37,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'model',
             'company',
             'distributor',
-            'is_running',
-            'is_lipo',
-            'is_nimh',
-            'needs_work',
+            'is_running:boolean',
+            'is_lipo:boolean',
+            'is_nimh:boolean',
+            'needs_work:boolean',
             'notes:ntext',
-            'create_ts',
+            'create_ts:datetime',
         ],
     ]) ?>
+
+    <!--TODO -- Image::thumbnail()-->
+    <?= Html::img(Yii::getAlias('@web/arma_car.jpg'), ['height' => 400, 'width' => 400]); ?>
 
 </div>
