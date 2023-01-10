@@ -22,6 +22,8 @@ use Yii;
  */
 class RcCar extends \yii\db\ActiveRecord
 {
+    public string $imageFilePath = '';
+
     /**
      * {@inheritdoc}
      */
@@ -37,7 +39,7 @@ class RcCar extends \yii\db\ActiveRecord
     {
         return [
             [['is_running', 'is_lipo', 'is_nimh', 'needs_work'], 'integer'],
-            [['notes'], 'string'],
+            [['notes', 'imageFilePath'], 'string'],
             [['create_ts'], 'safe'],
             [['name', 'make', 'model', 'company', 'distributor'], 'string', 'max' => 255],
         ];
@@ -61,6 +63,7 @@ class RcCar extends \yii\db\ActiveRecord
             'needs_work' => 'Needs Work',
             'notes' => 'Notes',
             'create_ts' => 'Create Time',
+            'imageFilePath' => 'Car Image',
         ];
     }
 }

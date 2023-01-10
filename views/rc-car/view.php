@@ -9,6 +9,22 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var app\models\RcCar $model */
 
+
+/*TODO (1/9/2023)
+ * Still trying to get the UploadForm Imagefile name to persist to the RcCar model imageFilePath property.
+ * For now, having to rely on session variables (while admin is logged in) or a convention based approach
+ * where the photo is loaded from the directory based on the make of the car.
+ */
+
+$viewImage = '';
+
+if (Yii::$app->session->has('imageFileName'))
+{
+    $viewImage = Yii::$app->session->get('imageFileName');
+} else {
+    $viewImage = strtolower($model->make) . '_car.jpg';
+}
+
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Rc Cars', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -43,10 +59,24 @@ $this->params['breadcrumbs'][] = $this->title;
             'needs_work:boolean',
             'notes:ntext',
             'create_ts:datetime',
+            [
+                'label' => 'Car Image',
+                'attribute' => 'imageFilePath',
+                'value' => Yii::getAlias('@web/' . $viewImage),
+                'format' => ['image', ['width' => 400, 'height' => 400]],
+            ],
         ],
     ]) ?>
 
+    <?php if (Yii::$app->session->hasFlash('uploadSuccess')): ?>
+        <div class="alert alert-success alert-dismissable">
+            <!--<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>-->
+            <h4><i class="icon fa fa-check"></i>Saved!</h4>
+            <?= Yii::$app->session->getFlash('uploadSuccess') ?>
+        </div>
+    <?php endif; ?>
+
     <!--TODO -- Image::thumbnail()-->
-    <?= Html::img(Yii::getAlias('@web/arma_car.jpg'), ['height' => 400, 'width' => 400]); ?>
+
 
 </div>

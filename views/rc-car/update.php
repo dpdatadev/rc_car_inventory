@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /** @var yii\web\View $this */
 /** @var app\models\RcCar $model */
+/** @var app\models\UploadForm $uploadModel */
 
 $this->title = 'Update Rc Car: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Rc Cars', 'url' => ['index']];
@@ -16,6 +17,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'uploadModel' => $uploadModel
     ]) ?>
 
 </div>

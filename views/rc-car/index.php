@@ -5,11 +5,9 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
-use yii\widgets\ActiveForm;
 use yii\widgets\Pjax;
 
 /** @var yii\web\View $this */
-/** @var app\models\UploadForm $uploadModel */
 /** @var app\models\RcCarSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
@@ -24,22 +22,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Rc Car', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <p class="info"><small>Configured upload location:<pre>Directory: ./web</pre> Name the image file with this convention: <pre>(make)_(optional_info)_car.jpg/png</pre></small></p>
-    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
-
-    <?= $form->field($uploadModel, 'imageFile')->fileInput() ?>
-
-    <button>Submit</button>
-
-    <?php ActiveForm::end() ?>
-
-    <?php if (Yii::$app->session->hasFlash('uploadSuccess')): ?>
-        <div class="alert alert-success alert-dismissable">
-            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-            <h4><i class="icon fa fa-check"></i>Saved!</h4>
-            <?= Yii::$app->session->getFlash('uploadSuccess') ?>
-        </div>
-    <?php endif; ?>
 
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -70,10 +52,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php Pjax::end(); ?>
 
-    <?php if(Yii::$app->session->has('imageFileName')): ?>
-        <?php $imageFileName = Yii::$app->session->get('imageFileName');?>
+    <?php if(Yii::$app->session->has('imageFileNameIndex')): ?>
+        <?php $imageFileName = Yii::$app->session->get('imageFileNameIndex');?>
         <div class="container text-center">
-            <?= Html::img('@web/' . $imageFileName, ['alt' => 'carUpload', 'height' => '200', 'width' => '200']) ?>
+            <p class="lead text-center">Recent Images:</p><br />
+            <?= Html::img('@web/' . $imageFileName, ['alt' => 'carUpload', 'height' => '300', 'width' => '300']) ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if (Yii::$app->session->hasFlash('deleteSuccess')): ?>
+        <div class="alert alert-success"> <!--alert-dismissable-->
+            <!--<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>-->
+            <h4><i class="icon fa fa-check"></i>Deleted!</h4>
+            <?= Yii::$app->session->getFlash('deleteSuccess') ?>
         </div>
     <?php endif; ?>
 

@@ -30,6 +30,7 @@ class RcCarController extends Controller
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
+                        'index' => ['GET'],
                         'delete' => ['POST'],
                     ],
                 ],
@@ -54,29 +55,12 @@ class RcCarController extends Controller
      */
     public function actionIndex()
     {
-        $uploadModel = new UploadForm();
         $searchModel = new RcCarSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
-        if (Yii::$app->request->isPost) {
-            $uploadModel->imageFile = UploadedFile::getInstance($uploadModel, 'imageFile');
-            if ($uploadModel->upload()) {
-                // file is uploaded successfully
-                Yii::$app->session->setFlash('uploadSuccess', "Image uploaded successfully! " . $uploadModel->imageFile->name);
-                // display the uploaded image below the gridview
-                Yii::$app->session->set('imageFileName', $uploadModel->imageFile->name);
-                return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'uploadModel' => $uploadModel,
-                    'dataProvider' => $dataProvider
-                ]);
-            }
-        }
-
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'uploadModel' => $uploadModel,
-            'dataProvider' => $dataProvider
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider
         ]);
     }
 
@@ -101,17 +85,33 @@ class RcCarController extends Controller
     public function actionCreate()
     {
         $model = new RcCar();
+        $uploadModel = new UploadForm();
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            $uploadModel->imageFile = UploadedFile::getInstance($uploadModel, 'imageFile');
+            if ($model->load($this->request->post()) && $uploadModel->upload())
+            {
+                $imageName = $uploadModel->imageFile->name;
+
+                if ($model->save())
+                {
+                    $model->imageFilePath = $imageName; //TODO, not setting properly
+                    // file is uploaded successfully
+                    Yii::$app->session->setFlash('uploadSuccess', "Image uploaded successfully! " . $imageName);
+                    // display the uploaded image name in view (until timeout, TODO -- still trying to persist file path to RcCar model)
+                    Yii::$app->session->set('imageFileName', $imageName);
+                    //only to be set for displaying on index page until deleted
+                    Yii::$app->session->set('imageFileNameIndex', $imageName);
+                    //redirect to view and see the new car
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             } else {
                 $model->loadDefaultValues();
             }
-
         }
 
         return $this->render('create', [
             'model' => $model,
+            'uploadModel' => $uploadModel,
         ]);
     }
 
@@ -125,13 +125,27 @@ class RcCarController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $uploadModel = new UploadForm();
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost) {
+            $uploadModel->imageFile = UploadedFile::getInstance($uploadModel, 'imageFile');
+            if ($model->load($this->request->post()) && $uploadModel->upload())
+            {
+                $imageName = $uploadModel->imageFile->name;
+
+                if ($model->save())
+                {
+                    $model->imageFilePath = $imageName;
+                    Yii::$app->session->set('imageFileName', $imageName);
+                    Yii::$app->session->set('imageFileNameIndex', $imageName);
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
+            'uploadModel' => $uploadModel
         ]);
     }
 
@@ -144,8 +158,16 @@ class RcCarController extends Controller
      */
     public function actionDelete($id)
     {
+        $model = $this->findModel($id);
+        //unlink(Yii::getAlias('@web/' . $model->imageFilePath)); TODO no permission to unlink image (remove file)
+        $model->delete();
+        if (Yii::$app->session->has('imageFileNameIndex'))
+        {
+            Yii::$app->session->destroy('imageFileNameIndex');
+        }
 
-        $this->findModel($id)->delete();
+        Yii::$app->session->setFlash('deleteSuccess', "Car successfully deleted!");
+        $this->redirect(['index']);
 
     }
 
