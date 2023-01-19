@@ -4,7 +4,6 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\RcCar;
 
 /**
  * RcCarSearch represents the model behind the search form of `app\models\RcCar`.
@@ -38,7 +37,7 @@ class RcCarSearch extends RcCar
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search(array $params): ActiveDataProvider
     {
         $query = RcCar::find();
 

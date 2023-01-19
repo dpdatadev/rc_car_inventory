@@ -11,6 +11,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 use yii\web\UploadedFile;
 
 
@@ -22,13 +23,13 @@ class RcCarController extends Controller
     /**
      * @inheritDoc
      */
-    public function behaviors()
+    public function behaviors(): array
     {
         return array_merge(
             parent::behaviors(),
             [
                 'verbs' => [
-                    'class' => VerbFilter::className(),
+                    'class' => VerbFilter::class,
                     'actions' => [
                         'index' => ['GET'],
                         'delete' => ['POST'],
@@ -40,7 +41,6 @@ class RcCarController extends Controller
                     'rules' => [
                         [
                             'allow' => true,
-                            'actions' => ['index', 'view', 'create'],
                             'roles' => ['@'],
                         ],
                     ],
@@ -53,7 +53,7 @@ class RcCarController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex(): string
     {
         $searchModel = new RcCarSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
@@ -70,7 +70,7 @@ class RcCarController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView(string $id): string
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -80,9 +80,9 @@ class RcCarController extends Controller
     /**
      * Creates a new RcCar model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
+     * @return string|Response
      */
-    public function actionCreate()
+    public function actionCreate(): string | Response
     {
         $model = new RcCar();
         $uploadModel = new UploadForm();
@@ -92,9 +92,10 @@ class RcCarController extends Controller
             {
                 $imageName = $uploadModel->imageFile->name;
 
+                $model->imageFilePath = $imageName; //TODO, not setting properly
+
                 if ($model->save())
                 {
-                    $model->imageFilePath = $imageName; //TODO, not setting properly
                     // file is uploaded successfully
                     Yii::$app->session->setFlash('uploadSuccess', "Image uploaded successfully! " . $imageName);
                     // display the uploaded image name in view (until timeout, TODO -- still trying to persist file path to RcCar model)
@@ -178,7 +179,7 @@ class RcCarController extends Controller
      * @return RcCar the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel(int $id): RcCar
     {
         if (($model = RcCar::findOne(['id' => $id])) !== null) {
             return $model;

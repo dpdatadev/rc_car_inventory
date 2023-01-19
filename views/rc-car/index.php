@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'is_running',
             //'is_lipo',
             //'is_nimh',
-            'needs_work',
+            'needs_work:boolean',
             //'notes:ntext',
             [
                 'class' => ActionColumn::className(),
