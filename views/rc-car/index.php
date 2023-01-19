@@ -24,7 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]);
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -42,25 +43,25 @@ $this->params['breadcrumbs'][] = $this->title;
             'needs_work:boolean',
             //'notes:ntext',
             [
-                'class' => ActionColumn::className(),
+                'class' => ActionColumn::class,
                 'urlCreator' => function ($action, RcCar $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                }
             ],
         ],
     ]); ?>
 
     <?php Pjax::end(); ?>
 
-    <?php if(Yii::$app->session->has('imageFileNameIndex')): ?>
-        <?php $imageFileName = Yii::$app->session->get('imageFileNameIndex');?>
+    <?php if (Yii::$app->session->has('imageFileNameIndex')) : ?>
+        <?php $imageFileName = Yii::$app->session->get('imageFileNameIndex'); ?>
         <div class="container text-center">
             <p class="lead text-center">Recent Images:</p><br />
             <?= Html::img('@web/' . $imageFileName, ['alt' => 'carUpload', 'height' => '300', 'width' => '300']) ?>
         </div>
     <?php endif; ?>
 
-    <?php if (Yii::$app->session->hasFlash('deleteSuccess')): ?>
+    <?php if (Yii::$app->session->hasFlash('deleteSuccess')) : ?>
         <div class="alert alert-success"> <!--alert-dismissable-->
             <!--<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>-->
             <h4><i class="icon fa fa-check"></i>Deleted!</h4>

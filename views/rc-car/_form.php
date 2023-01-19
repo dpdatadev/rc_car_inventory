@@ -33,7 +33,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'notes')->textarea(['rows' => 6]) ?>
 
-    <p class="info"><small>Configured upload location:<pre>Directory: ./web</pre> Name the image file with this convention: <pre>(make)_(optional_info)_car.jpg/png</pre></small></p>
+    <p class="info"><small>Configured upload location:
+            <pre>Directory: ./web</pre> Name the image file with this convention:
+            <pre>(make)_(optional_info)_car.jpg/png</pre>
+        </small></p>
 
     <?= $form->field($uploadModel, 'imageFile')->fileInput() ?>
 

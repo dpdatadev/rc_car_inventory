@@ -59,8 +59,8 @@ class RcCarController extends Controller
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider
         ]);
     }
 
@@ -88,14 +88,12 @@ class RcCarController extends Controller
         $uploadModel = new UploadForm();
         if ($this->request->isPost) {
             $uploadModel->imageFile = UploadedFile::getInstance($uploadModel, 'imageFile');
-            if ($model->load($this->request->post()) && $uploadModel->upload())
-            {
+            if ($model->load($this->request->post()) && $uploadModel->upload()) {
                 $imageName = $uploadModel->imageFile->name;
 
                 $model->imageFilePath = $imageName; //TODO, not setting properly
 
-                if ($model->save())
-                {
+                if ($model->save()) {
                     // file is uploaded successfully
                     Yii::$app->session->setFlash('uploadSuccess', "Image uploaded successfully! " . $imageName);
                     // display the uploaded image name in view (until timeout, TODO -- still trying to persist file path to RcCar model)
@@ -130,12 +128,10 @@ class RcCarController extends Controller
 
         if ($this->request->isPost) {
             $uploadModel->imageFile = UploadedFile::getInstance($uploadModel, 'imageFile');
-            if ($model->load($this->request->post()) && $uploadModel->upload())
-            {
+            if ($model->load($this->request->post()) && $uploadModel->upload()) {
                 $imageName = $uploadModel->imageFile->name;
 
-                if ($model->save())
-                {
+                if ($model->save()) {
                     $model->imageFilePath = $imageName;
                     Yii::$app->session->set('imageFileName', $imageName);
                     Yii::$app->session->set('imageFileNameIndex', $imageName);
@@ -162,14 +158,12 @@ class RcCarController extends Controller
         $model = $this->findModel($id);
         //unlink(Yii::getAlias('@web/' . $model->imageFilePath)); TODO no permission to unlink image (remove file)
         $model->delete();
-        if (Yii::$app->session->has('imageFileNameIndex'))
-        {
+        if (Yii::$app->session->has('imageFileNameIndex')) {
             Yii::$app->session->destroy('imageFileNameIndex');
         }
 
         Yii::$app->session->setFlash('deleteSuccess', "Car successfully deleted!");
         $this->redirect(['index']);
-
     }
 
     /**

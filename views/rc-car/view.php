@@ -18,11 +18,10 @@ use yii\widgets\DetailView;
 
 $viewImage = '';
 
-if (Yii::$app->session->has('imageFileName'))
-{
+if (Yii::$app->session->has('imageFileName')) {
     $viewImage = Yii::$app->session->get('imageFileName');
 } else {
-    $viewImage = strtolower($model->make) . '_car.jpg';
+    $viewImage = strtolower($model->model) . '_car.jpg';
 }
 
 $this->title = $model->name;
@@ -63,12 +62,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Car Image',
                 'attribute' => 'imageFilePath',
                 'value' => Yii::getAlias('@web/' . $viewImage),
-                'format' => ['image', ['width' => 400, 'height' => 400]],
+                'format' => ['image', ['width' => 200, 'height' => 200]],
             ],
         ],
     ]) ?>
 
-    <?php if (Yii::$app->session->hasFlash('uploadSuccess')): ?>
+    <?php if (Yii::$app->session->hasFlash('uploadSuccess')) : ?>
         <div class="alert alert-success alert-dismissable">
             <!--<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>-->
             <h4><i class="icon fa fa-check"></i>Saved!</h4>
