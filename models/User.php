@@ -18,7 +18,7 @@ class User extends BaseObject implements IdentityInterface
             'id' => '100',
             'username' => 'admin',
             'password' => 'BigBoi321!!!@@@###',
-            'authKey' => 'test100key',
+            'authKey' => 'admin100key',
             'accessToken' => '100-token',
         ]
     ];
