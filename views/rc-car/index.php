@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'model',
             'company',
             //'distributor',
-            //'is_running',
+            'is_running:boolean',
             //'is_lipo',
             //'is_nimh',
             'needs_work:boolean',

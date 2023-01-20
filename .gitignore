@@ -1,6 +1,9 @@
 # phpstorm project files
 .idea
 
+# vscode dev containers (docker)
+.devcontainer
+
 # netbeans project files
 nbproject
 

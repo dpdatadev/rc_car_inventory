@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
     <?php if (Yii::$app->session->hasFlash('uploadSuccess')) : ?>
-        <div class="alert alert-success alert-dismissable">
+        <div class="alert alert-success alert-dismissable"> <!--TODO: make dismissable?-->
             <!--<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>-->
             <h4><i class="icon fa fa-check"></i>Saved!</h4>
             <?= Yii::$app->session->getFlash('uploadSuccess') ?>

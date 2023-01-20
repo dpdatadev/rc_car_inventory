@@ -55,7 +55,7 @@ class RcCar extends \yii\db\ActiveRecord
             'model' => 'Model',
             'company' => 'Company',
             'distributor' => 'Distributor',
-            'is_running' => 'Is Running',
+            'is_running' => 'Car Runs',
             'is_lipo' => 'Takes Lipo Battery (default)',
             'is_nimh' => 'Takes NiMH Battery',
             'needs_work' => 'Needs Work',
