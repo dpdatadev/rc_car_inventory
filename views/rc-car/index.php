@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'make',
             'model',
-            'company',
+            //'company',
             //'distributor',
             'is_running:boolean',
             //'is_lipo',
